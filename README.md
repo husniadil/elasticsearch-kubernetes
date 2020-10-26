@@ -62,7 +62,7 @@ kubectl delete -k .
 [![Deployment](https://user-images.githubusercontent.com/10581130/97151797-9791fd00-17a2-11eb-84f3-c2308afb3a50.gif)](https://asciinema.org/a/TdbnSraK3oooVkzHOeeh59vvG)
 
 ## Disclaimer
-This script is provided as is and it's intended for educational purpose. For production-ready deployment, you need to have to know Elasticsearch best practices, you may find some useful references below. 
+This script is provided as is and it's intended for educational purpose. For production-ready deployment, you have to know Elasticsearch best practices, you may find some useful references below.
 
 ## For reading
 
