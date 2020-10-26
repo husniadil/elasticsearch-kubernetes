@@ -51,7 +51,7 @@ curl http://elasticsearch.monitoring.svc.cluster.local
 # or load-balancer IP
 curl http://10.103.9.167
 ```
-[![Deployment](https://drive.google.com/uc?export=view&id=1QlbvmbF0y4pvkmWanQO5qHqtrX8Ympi2)](https://asciinema.org/a/nv6eyG8PEpOU1XpljK5UZ1mOR)
+[![Deployment](https://user-images.githubusercontent.com/10581130/97151810-9bbe1a80-17a2-11eb-95d4-9bb0c209cea8.gif)](https://asciinema.org/a/nv6eyG8PEpOU1XpljK5UZ1mOR)
 
 ## Destroying
 Destroying your cluster is simple as well. Make sure that you know what you are doing.
@@ -59,7 +59,7 @@ Destroying your cluster is simple as well. Make sure that you know what you are 
 # note: dot after -k indicates current directory
 kubectl delete -k .
 ```
-[![Deployment](https://drive.google.com/uc?export=view&id=1ovpn_24gC82_XONytOrQWI3zkTz-FKms)](https://asciinema.org/a/TdbnSraK3oooVkzHOeeh59vvG)
+[![Deployment](https://user-images.githubusercontent.com/10581130/97151797-9791fd00-17a2-11eb-84f3-c2308afb3a50.gif)](https://asciinema.org/a/TdbnSraK3oooVkzHOeeh59vvG)
 
 ## Disclaimer
 This script is provided as is and it's intended for educational purpose. For production-ready deployment, you need to have to know Elasticsearch best practices, you may find some useful references below. 
