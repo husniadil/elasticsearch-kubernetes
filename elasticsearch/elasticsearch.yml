@@ -20,7 +20,6 @@ discovery.seed_hosts:
   - elasticsearch-master
   - elasticsearch-data
   - elasticsearch-client
-
 # HEAP SIZE
 # See jvm.options file
 
@@ -32,7 +31,3 @@ discovery.seed_hosts:
 
 # TEMP DIRECTORY
 # Already defined in the environment variable
-
-# DEFAULT NODE ROLE
-# Do not remove this settings, this is used to set default node.roles (used by client node)
-node.roles: []
