@@ -9,6 +9,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
+      app: elasticsearch
       role: master
   serviceName: elasticsearch-master
   template:
