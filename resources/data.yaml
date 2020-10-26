@@ -35,7 +35,7 @@ spec:
               mountPath: /tmp
       containers:
         - name: elasticsearch
-          image: elasticsearch:7.9.3
+          image: elasticsearch
           imagePullPolicy: IfNotPresent
           env:
             - name: ES_TMPDIR
