@@ -11,7 +11,6 @@ images:
     newTag: 1.31.1
     newName: busybox
 resources:
-  - resources/namespace.yaml
   - resources/master.yaml
   - resources/data.yaml
   - resources/client.yaml
