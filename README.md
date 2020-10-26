@@ -1,6 +1,6 @@
 # Elasticsearch Kubernetes
 
-This formula will help you to deploy and test a kubernetes-ready Elasticsearch cluster. With this setup you will get:
+This formula will help you to deploy and test a Kubernetes-ready Elasticsearch cluster. With this setup you will get:
 
 - Elasticsearch 7.9.3
   - 2 master nodes
@@ -10,7 +10,7 @@ This formula will help you to deploy and test a kubernetes-ready Elasticsearch c
 
 ## Prerequisites
 
-You need to have a running kubernetes cluster on your system (version 1.17 or newer).
+You need to have a running Kubernetes cluster on your system (version 1.17 or newer).
 If you want to run it locally right on your PC or laptop, you can use [minikube](https://github.com/kubernetes/minikube), [kind](https://kind.sigs.k8s.io/), or [docker-desktop](https://www.docker.com/products/docker-desktop). Personally, I use `docker-desktop` since I'm using Windows 10, it integrates seamlessly with the running Ubuntu instance on WSL2.
 
 You can check the version using `kubectl version` command.
