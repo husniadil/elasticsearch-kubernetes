@@ -1,0 +1,38 @@
+# PATH SETTINGS
+path:
+  logs: /usr/share/elasticsearch/logs
+  data: /usr/share/elasticsearch/data
+
+# CLUSTER NAME
+cluster.name: elasticsearch
+
+# NODE NAME
+# Already defined in the environment variable
+
+# NETWORK HOST
+network.host: 0.0.0.0
+
+# DISCOVERY SETTINGS
+cluster.initial_master_nodes:
+  - elasticsearch-master-0.elasticsearch-master
+  - elasticsearch-master-1.elasticsearch-master
+discovery.seed_hosts:
+  - elasticsearch-master
+  - elasticsearch-data
+  - elasticsearch-client
+
+# HEAP SIZE
+# See jvm.options file
+
+# JVM HEAP DUMP PATH
+# See jvm.options file
+
+# GC LOGGING
+# See jvm.options file
+
+# TEMP DIRECTORY
+# Already defined in the environment variable
+
+# DEFAULT NODE ROLE
+# Do not remove this settings, this is used to set default node.roles (used by client node)
+node.roles: []

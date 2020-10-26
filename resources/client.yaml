@@ -1,0 +1,140 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    role: client
+  name: elasticsearch-client
+spec:
+  podManagementPolicy: Parallel
+  replicas: 1
+  selector:
+    matchLabels:
+      role: client
+  serviceName: elasticsearch-client
+  template:
+    metadata:
+      labels:
+        role: client
+    spec:
+      initContainers:
+        - name: init-container
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          command: ['/bin/sh']
+          args:
+            - -c
+            - >-
+              touch /tmp/healthy &&
+              sysctl -w vm.max_map_count=262144 &&
+              sysctl -w fs.file-max=65536
+          resources: {}
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      containers:
+        - name: elasticsearch
+          image: elasticsearch:7.9.3
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: ES_TMPDIR
+              valueFrom:
+                configMapKeyRef:
+                  name: tmpdir
+                  key: tmpdir
+            - name: APP
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app']
+            - name: ROLE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['role']
+            - name: node.name
+              value: '${HOSTNAME}.$(APP)-$(ROLE)'
+            - name: node.roles
+              value: master,voting_only
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /tmp/healthy
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 9300
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: '1'
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 1500Mi
+          securityContext:
+            privileged: true
+          ports:
+            - containerPort: 9300
+              name: transport
+              protocol: TCP
+          volumeMounts:
+            - name: elasticsearch-yml
+              subPath: elasticsearch.yml
+              mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+            - name: jvm-options
+              subPath: jvm.options
+              mountPath: /usr/share/elasticsearch/config/jvm.options.d/jvm.options
+            - name: log4j2-properties
+              subPath: log4j2.properties
+              mountPath: /usr/share/elasticsearch/config/log4j2.properties
+            - name: storage
+              mountPath: /usr/share/elasticsearch/data
+            - name: tmp
+              mountPath: /tmp
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      securityContext: {}
+      terminationGracePeriodSeconds: 20
+      volumes:
+        - name: elasticsearch-yml
+          configMap:
+            name: elasticsearch.yml
+        - name: jvm-options
+          configMap:
+            name: jvm.options
+        - name: log4j2-properties
+          configMap:
+            name: log4j2.properties
+        - name: storage
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+  updateStrategy:
+    type: OnDelete
+  volumeClaimTemplates: []
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    role: client
+  name: elasticsearch-client
+spec:
+  clusterIP: None
+  ports:
+    - name: transport
+      port: 9300
+      protocol: TCP
+      targetPort: 9300
+  selector:
+    app: elasticsearch
+    role: client
+  publishNotReadyAddresses: true
+  sessionAffinity: None
+  type: ClusterIP

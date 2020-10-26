@@ -1,0 +1,6 @@
+-Xms1G
+-Xmx1G
+-XX:HeapDumpPath=/usr/share/elasticsearch/logs
+-Xlog:disable
+-Xlog:all=warning:stderr:utctime,level,tags
+-Xlog:gc=debug:stderr:utctime
